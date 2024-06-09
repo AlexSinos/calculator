@@ -1,5 +1,5 @@
 //----------CALCULATOR-----------------\\
-let screen = document.querySelector("#screen")
+let display = document.querySelector("#display")
 let buttons = document.querySelectorAll("button")
 let operators = document.querySelectorAll("operators")
 let num1 = ''
@@ -29,18 +29,18 @@ buttons.forEach(button => {
         if (button.classList.contains("number")) {
             if (inputtingFirstNumber) {
                 num1 += button.textContent
-                screen.textContent = num1
+                display.textContent = num1
             }
             else {
                 num2 +=button.textContent
-                screen.textContent = num2
+                display.textContent = num2
                 }
             }
         
             else if (button.classList.contains("operator")) {
                 if (num1) {
                     operator = button.textContent;
-                    screen.textContent = operator;
+                    display.textContent = operator;
                     inputtingFirstNumber = false;
                 }}
         if (button.id ==="equals") {
@@ -71,7 +71,7 @@ const clearAll = function() {
             num1 = ''
             num2 = ''
             operator = ''
-            screen.textContent = ''
+            display.textContent = ''
             inputtingFirstNumber = true
         }
 
@@ -79,13 +79,21 @@ const displayResult = function() {
             num1 = ''
             num2 = ''
             operator = ''
-            screen.textContent = result
+            display.textContent = result
             inputtingFirstNumber = true
 }
 //----------CALCULATOR-----------------\\
 
 
 //----------TIME------------------\\
-const now = new Date();
-const hours = now.getHours();
-const minutes = now.getMinutes();
+const updateTime = () => {
+        const now = new Date();
+    const hours = now.getHours().toString().padStart(2, "0");
+    const minutes = now.getMinutes().toString().padStart(2, "0");
+    const timeElement = document.getElementById("time");
+    if (timeElement) {
+        timeElement.textContent = `${hours}:${minutes}`;
+    }
+};
+
+setInterval(updateTime, 1000);
