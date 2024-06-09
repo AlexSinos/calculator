@@ -20,19 +20,19 @@ let multiply = function(a, b) {
     displayResult(result)
 }
 let divide = function(a, b) {
-    let result = a / b 
+    result = a / b 
     displayResult(result)
 }
 
 buttons.forEach(button => {
     button.addEventListener("click", () =>  {
         if (button.classList.contains("number")) {
-            if (inputtingFirstNumber) {
+            if (inputtingFirstNumber && num1.toString().length < 8) {
                 num1 += button.textContent
                 display.textContent = num1
             }
-            else {
-                num2 +=button.textContent
+            else if (inputtingFirstNumber === false && num2.toString().length < 8) {
+                num2 += button.textContent
                 display.textContent = num2
                 }
             }
@@ -44,8 +44,9 @@ buttons.forEach(button => {
                     inputtingFirstNumber = false;
                 }}
         if (button.id ==="equals") {
+            if (num1 && num2) {
             operate(operator, num1, num2)
-        }
+        }}
         else if (button.id ==="AC") {
             clearAll()
         }
@@ -79,8 +80,14 @@ const displayResult = function() {
             num1 = ''
             num2 = ''
             operator = ''
+            if (result.toString().length < 8) { 
             display.textContent = result
+            }
+            else {
+                display.textContent = "Error, value too long"
+            }
             inputtingFirstNumber = true
+
 }
 //----------CALCULATOR-----------------\\
 
